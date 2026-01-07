@@ -28,7 +28,7 @@ export default function Home() {
   // Prevent hydration mismatch by not rendering until mounted
   if (!mounted) {
     return (
-      <div className="h-screen w-screen flex items-center justify-center bg-[var(--background)]">
+      <div className="h-full w-full flex items-center justify-center bg-[var(--background)]">
         <div className="animate-pulse">
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-r from-[var(--purple-400)] via-[var(--pink-400)] to-[var(--orange-400)]" />
         </div>
@@ -37,7 +37,7 @@ export default function Home() {
   }
 
   return (
-    <main className="h-screen w-screen flex overflow-hidden bg-[var(--background)]">
+    <main className="h-full w-full flex overflow-hidden bg-[var(--background)]">
       {/* Sidebar */}
       <Sidebar
         isOpen={sidebarOpen}
