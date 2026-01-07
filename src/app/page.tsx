@@ -10,9 +10,12 @@ export default function Home() {
   const [mounted, setMounted] = useState(false);
   const { theme } = useThemeStore();
 
-  // Handle hydration
+  // Handle hydration and initial sidebar state
   useEffect(() => {
     setMounted(true);
+    if (window.innerWidth < 768) {
+      setSidebarOpen(false);
+    }
   }, []);
 
   // Apply theme on mount and when it changes

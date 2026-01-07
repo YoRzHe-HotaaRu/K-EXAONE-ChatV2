@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import Image from 'next/image';
 import { Plus, PanelLeftClose, PanelLeft, Sun, Moon } from 'lucide-react';
@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button';
 import { ConversationItem } from './ConversationItem';
 import { useChatStore, useConversations } from '@/stores/chatStore';
 import { useThemeStore } from '@/stores/themeStore';
-import { cn } from '@/lib/utils';
 
 interface SidebarProps {
     isOpen: boolean;
@@ -22,6 +21,18 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
 
     const handleNewChat = () => {
         createConversation();
+        // On mobile, close sidebar after selecting new chat
+        if (window.innerWidth < 768) {
+            onToggle();
+        }
+    };
+
+    const handleConversationClick = (id: string) => {
+        setActiveConversation(id);
+        // On mobile, close sidebar after selecting a conversation
+        if (window.innerWidth < 768) {
+            onToggle();
+        }
     };
 
     // Group conversations by date
@@ -54,6 +65,20 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
 
     return (
         <>
+            {/* Mobile Backdrop */}
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={onToggle}
+                        className="fixed inset-0 bg-black/50 z-30 md:hidden"
+                        data-testid="sidebar-backdrop"
+                    />
+                )}
+            </AnimatePresence>
+
             {/* Sidebar */}
             <AnimatePresence mode="wait">
                 {isOpen && (
@@ -62,7 +87,7 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
                         animate={{ width: 280, opacity: 1 }}
                         exit={{ width: 0, opacity: 0 }}
                         transition={{ duration: 0.2 }}
-                        className="flex-shrink-0 h-full overflow-hidden border-r border-[var(--gray-200)] [html[data-theme='dark']_&]:border-[var(--gray-800)]"
+                        className="fixed inset-y-0 left-0 z-40 md:relative md:z-0 flex-shrink-0 h-full overflow-hidden border-r border-[var(--gray-200)] [html[data-theme='dark']_&]:border-[var(--gray-800)] shadow-xl md:shadow-none"
                         data-testid="sidebar"
                     >
                         <div className="h-full w-[280px] flex flex-col bg-[var(--sidebar-bg)]">
@@ -94,7 +119,7 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
                                 <Button
                                     variant="default"
                                     onClick={handleNewChat}
-                                    className="w-full justify-start gap-2"
+                                    className="w-full justify-start gap-2 [html[data-theme='dark']_&]:text-white"
                                     data-testid="new-chat-button"
                                 >
                                     <Plus className="w-4 h-4" />
@@ -121,7 +146,7 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
                                                             key={conv.id}
                                                             conversation={conv}
                                                             isActive={conv.id === activeConversationId}
-                                                            onClick={() => setActiveConversation(conv.id)}
+                                                            onClick={() => handleConversationClick(conv.id)}
                                                             onDelete={() => deleteConversation(conv.id)}
                                                         />
                                                     ))}
@@ -138,7 +163,7 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
                                                             key={conv.id}
                                                             conversation={conv}
                                                             isActive={conv.id === activeConversationId}
-                                                            onClick={() => setActiveConversation(conv.id)}
+                                                            onClick={() => handleConversationClick(conv.id)}
                                                             onDelete={() => deleteConversation(conv.id)}
                                                         />
                                                     ))}
@@ -155,7 +180,7 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
                                                             key={conv.id}
                                                             conversation={conv}
                                                             isActive={conv.id === activeConversationId}
-                                                            onClick={() => setActiveConversation(conv.id)}
+                                                            onClick={() => handleConversationClick(conv.id)}
                                                             onDelete={() => deleteConversation(conv.id)}
                                                         />
                                                     ))}
@@ -172,7 +197,7 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
                                                             key={conv.id}
                                                             conversation={conv}
                                                             isActive={conv.id === activeConversationId}
-                                                            onClick={() => setActiveConversation(conv.id)}
+                                                            onClick={() => handleConversationClick(conv.id)}
                                                             onDelete={() => deleteConversation(conv.id)}
                                                         />
                                                     ))}

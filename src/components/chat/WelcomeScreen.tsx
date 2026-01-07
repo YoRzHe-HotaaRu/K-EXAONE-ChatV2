@@ -87,7 +87,7 @@ export function WelcomeScreen({ onSuggestionClick }: WelcomeScreenProps) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full max-w-2xl"
+                className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full max-w-4xl"
             >
                 {suggestions.map((suggestion, index) => (
                     <motion.button

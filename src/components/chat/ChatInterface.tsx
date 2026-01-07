@@ -32,7 +32,7 @@ export function ChatInterface() {
 
             {/* Error Display */}
             {error && (
-                <div className="mx-auto max-w-3xl w-full px-4 mb-2">
+                <div className="mx-auto max-w-5xl w-full px-4 mb-2">
                     <div className="bg-red-50 border border-red-200 text-red-600 rounded-lg px-4 py-2 text-sm [html[data-theme='dark']_&]:bg-red-500/10 [html[data-theme='dark']_&]:border-red-500/30 [html[data-theme='dark']_&]:text-red-400">
                         {error}
                     </div>

@@ -34,7 +34,7 @@ export function MessageList({ messages, isStreaming = false }: MessageListProps)
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="max-w-3xl mx-auto py-4"
+                className="max-w-5xl mx-auto py-4"
             >
                 {messages.map((message, index) => (
                     <MessageBubble
