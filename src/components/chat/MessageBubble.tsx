@@ -33,14 +33,14 @@ export function MessageBubble({ message, isLast = false }: MessageBubbleProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
             className={cn(
-                'flex gap-3 py-4',
+                'flex gap-2 md:gap-3 py-3 md:py-4',
                 isUser ? 'justify-end' : 'justify-start'
             )}
             data-testid={`message-${message.role}`}
         >
             {/* Assistant Avatar */}
             {!isUser && (
-                <div className="flex-shrink-0 w-8 h-8 rounded-lg overflow-hidden gradient-border bg-[var(--background)]">
+                <div className="flex-shrink-0 w-6 h-6 md:w-8 md:h-8 rounded-lg overflow-hidden gradient-border bg-[var(--background)]">
                     <Image
                         src="/logo.png"
                         alt="K-EXAONE"
@@ -53,7 +53,7 @@ export function MessageBubble({ message, isLast = false }: MessageBubbleProps) {
 
             {/* Message Content */}
             <div className={cn(
-                'max-w-[80%] lg:max-w-[70%]',
+                'max-w-[85%] md:max-w-[80%] lg:max-w-[70%]',
                 isUser && 'order-first'
             )}>
                 {/* Reasoning Block (only for assistant) */}
@@ -66,7 +66,7 @@ export function MessageBubble({ message, isLast = false }: MessageBubbleProps) {
 
                 {/* Message Bubble */}
                 <div className={cn(
-                    'relative group rounded-2xl px-4 py-3',
+                    'relative group rounded-2xl px-3 py-2 md:px-4 md:py-3',
                     isUser
                         ? 'gradient-border bg-[var(--background-secondary)] ml-auto'
                         : 'bg-[var(--message-assistant-bg)]'
@@ -182,8 +182,8 @@ export function MessageBubble({ message, isLast = false }: MessageBubbleProps) {
 
             {/* User Avatar */}
             {isUser && (
-                <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-gradient-to-br from-[var(--purple-400)] via-[var(--pink-400)] to-[var(--orange-400)] flex items-center justify-center">
-                    <User className="w-4 h-4 text-white" />
+                <div className="flex-shrink-0 w-6 h-6 md:w-8 md:h-8 rounded-lg bg-gradient-to-br from-[var(--purple-400)] via-[var(--pink-400)] to-[var(--orange-400)] flex items-center justify-center">
+                    <User className="w-3 h-3 md:w-4 md:h-4 text-white" />
                 </div>
             )}
         </motion.div>

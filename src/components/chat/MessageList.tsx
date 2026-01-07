@@ -28,13 +28,13 @@ export function MessageList({ messages, isStreaming = false }: MessageListProps)
     return (
         <div
             ref={containerRef}
-            className="flex-1 overflow-y-auto px-4 md:px-6 lg:px-8"
+            className="flex-1 overflow-y-auto px-2 md:px-6 lg:px-8"
             data-testid="message-list"
         >
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="max-w-5xl mx-auto py-4"
+                className="max-w-none md:max-w-5xl mx-auto py-2 md:py-4"
             >
                 {messages.map((message, index) => (
                     <MessageBubble

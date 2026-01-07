@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronDown, Brain } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -12,6 +12,16 @@ interface ReasoningBlockProps {
 
 export function ReasoningBlock({ content, isStreaming = false }: ReasoningBlockProps) {
     const [isExpanded, setIsExpanded] = useState(true);
+    const wasStreamingRef = useRef(isStreaming);
+
+    // Auto-collapse when streaming completes
+    useEffect(() => {
+        if (wasStreamingRef.current && !isStreaming) {
+            // Streaming just finished, collapse the block
+            setIsExpanded(false);
+        }
+        wasStreamingRef.current = isStreaming;
+    }, [isStreaming]);
 
     if (!content && !isStreaming) return null;
 
